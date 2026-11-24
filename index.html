@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What’s Your Monthly Number? Family Budget Pressure Test</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+:root{--bg:#f2f6f5;--card:#fff;--ink:#14232a;--mute:#5b6b72;--line:#d3dfdc;--brand:#0f4c5c;--on-brand:#fff;--accent:#e8a33d;--good:#1d7a4d;--warn:#b4531a;--bad:#a8322d;--tint:#e3eeec;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0e1a1f;--card:#16262d;--ink:#e8f0ee;--mute:#9db0b5;--line:#2b4048;--brand:#5fb3c4;--on-brand:#0e1a1f;--accent:#f0b55a;--good:#58c78d;--warn:#f0905a;--bad:#f07d77;--tint:#1c3039}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0e1a1f;--card:#16262d;--ink:#e8f0ee;--mute:#9db0b5;--line:#2b4048;--brand:#5fb3c4;--on-brand:#0e1a1f;--accent:#f0b55a;--good:#58c78d;--warn:#f0905a;--bad:#f07d77;--tint:#1c3039}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:8px 16px 64px}
+h1{font-size:clamp(1.9rem,6vw,2.9rem);line-height:1.05;font-weight:800;margin:22px 0 8px;letter-spacing:-.02em}
+h2{font-size:1.3rem;margin:34px 0 4px;font-weight:600}
+h3{margin:0 0 6px;font-size:1rem}
+.lead{font-size:1.05rem;color:var(--mute);margin:0;max-width:56ch}
+.priv{margin-top:14px;font-size:.88rem;color:var(--mute);max-width:62ch}.priv b{color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:10px}
+.sub{color:var(--mute);font-size:.92rem;margin:0 0 12px}
+.grid{display:grid;gap:12px;align-items:end;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+label{display:block;font-size:.88rem;font-weight:600;margin-bottom:4px}
+label small{display:block;font-weight:400;color:var(--mute);font-size:.78rem;line-height:1.25}
+input{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;background:var(--tint);border-radius:10px;padding:12px 14px;margin-top:14px;font-weight:600}
+.total .num{font-size:1.8rem;font-weight:800;color:var(--brand)}
+.num.bump{animation:bump .35s}
+@keyframes bump{50%{transform:scale(1.1)}}
+@media (prefers-reduced-motion:reduce){.num.bump{animation:none}}
+.rows{display:grid;grid-template-columns:1fr 104px 104px;gap:8px 10px;align-items:center}
+.hd{font-size:.82rem;color:var(--mute);font-weight:600}
+.gh{grid-column:1/-1;margin-top:14px;padding-top:12px;border-top:2px solid var(--line)}
+.gh b{font-size:1.05rem}.gh span{display:block;font-size:.85rem;color:var(--mute)}
+.lb{font-size:.95rem}.lb small{display:block;font-size:.78rem;color:var(--mute);line-height:1.25}
+.st{font-weight:600;font-size:.9rem;color:var(--mute)}
+.stn{font-weight:800;font-size:.95rem}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--brand);color:var(--on-brand);border-radius:16px;padding:22px;margin-top:10px}
+.hero .big{font-size:clamp(1.8rem,7vw,3rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--accent)}
+.hero p{margin:6px 0 0;font-size:.9rem}
+.hero .lab{font-size:.95rem}
+.pos{color:var(--good)}.neg{color:var(--bad)}
+.hero .pos,.hero .neg{color:inherit;font-weight:800}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:10px}
+.p{border-radius:14px;padding:16px;border:2px solid var(--line);background:var(--card)}
+.p.yes{border-color:var(--good)}.p.near{border-color:var(--accent)}
+.tag{display:inline-block;font-weight:800;font-size:.85rem;padding:2px 10px;border-radius:99px;background:var(--tint)}
+.yes .tag{color:var(--good)}.near .tag{color:var(--warn)}.no .tag{color:var(--bad)}
+.p h3{margin:8px 0 4px;font-size:1.05rem}.p p{margin:0;color:var(--mute);font-size:.93rem}
+.notes p{margin:0 0 8px}
+button{font:inherit;font-weight:600;border:0;border-radius:10px;padding:12px 18px;cursor:pointer;background:var(--brand);color:var(--on-brand)}
+button.alt{background:var(--tint);color:var(--ink)}
+textarea{width:100%;min-height:190px;font:.85rem/1.4 ui-monospace,Menlo,monospace;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);margin-top:10px}
+.foot{text-align:center;margin-top:34px}
+.foot p{margin:0 0 10px;font-weight:600}
+.soc{display:flex;justify-content:center;gap:12px}
+.soc a{display:inline-flex;width:46px;height:46px;align-items:center;justify-content:center;border-radius:50%;background:var(--brand);color:var(--on-brand)}
+.soc svg{width:22px;height:22px;fill:currentColor}
+.fine{font-size:.8rem;color:var(--mute);margin-top:22px;border-top:1px solid var(--line);padding-top:14px}
+.fine p{margin:0 0 8px}
+@media (max-width:520px){.rows{grid-template-columns:1fr 84px 84px}.hero{padding:16px;gap:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>What’s your real monthly number?</h1>
+<p class="lead">Add your income and what you spend, then pressure-test it: what if you cut back, or lived on less income?</p>
+<p class="priv"><b>Privacy:</b> I can’t see anything you enter, and your entries stay in your own browser. This tool was built with Claude and is hosted on GitHub Pages, so share only what you’re comfortable with. You can erase everything anytime with “Clear everything.”</p>
+
+<h2>Step 1: Monthly income</h2>
+<div class="card">
+<p class="sub">Use take-home (net) pay per month. Leave any field blank if it doesn’t apply to you.</p>
+<div class="grid">
+<div><label for="e1">Your take-home pay</label><input id="e1" data-k inputmode="decimal" placeholder="0"></div>
+<div><label for="e2">Second earner’s pay (optional)</label><input id="e2" data-k inputmode="decimal" placeholder="0"></div>
+<div><label for="oth">Other income (optional)</label><input id="oth" data-k inputmode="decimal" placeholder="Rental, passive, side income, etc."></div>
+</div>
+<div class="total"><span>Total monthly income</span><span class="num" id="incTot">$0</span></div>
+</div>
+
+<h2>Step 2: Monthly expenses, investing, and saving</h2>
+<div class="card">
+<p class="sub">Enter what you spend today. In “With cutbacks,” enter what you could realistically spend instead. Leave it blank to keep the same amount.</p>
+<div class="rows" id="rows"><div class="hd">Category</div><div class="hd">Today</div><div class="hd">With cutbacks</div></div>
+<div class="total"><span>Total every month</span><span><span class="num" id="allTot">$0</span> <span style="font-weight:400;font-size:.9rem">today</span></span></div>
+</div>
+
+<h2>Step 3: Your results</h2>
+<div id="out"></div>
+
+<h2>Save your results</h2>
+<div class="card">
+<p class="sub">Copy a text summary to paste into your notes or send to someone you trust.</p>
+<button id="copy">Copy my summary</button> <button class="alt" id="clear">Clear everything</button>
+<textarea id="sum" readonly aria-label="Results summary"></textarea>
+</div>
+
+<div class="foot">
+<p>Follow @heyitsjoannaherrera for more career and money tips</p>
+<div class="soc">
+<a href="https://www.instagram.com/heyitsjoannaherrera" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5zm5.2-3.2a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"/></svg></a>
+<a href="https://www.tiktok.com/@heyitsjoannaherrera" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.2v13.1a2.9 2.9 0 11-2.9-2.9c.3 0 .6 0 .9.1V9a6.1 6.1 0 105.2 6V8.7a7.6 7.6 0 004.4 1.4V6.9A4.4 4.4 0 0116.6 2z"/></svg></a>
+</div>
+</div>
+<div class="fine">
+<p><b>Important disclaimers.</b> This calculator is provided for general educational and illustrative purposes only. It is not financial, investment, tax, accounting, legal, or insurance advice, and it is not an offer, solicitation, or recommendation to buy, sell, or hold any security, insurance product, or account. I am not acting as your investment adviser, broker, financial planner, accountant, insurance agent, attorney, or fiduciary, and no advisory, professional, or fiduciary relationship is created by your use of this tool or this page.</p>
+<p>Results are simple arithmetic based only on the numbers you enter and the assumptions built into the tool. They are hypothetical, are not predictions or guarantees, and may be incomplete or inaccurate. They do not account for taxes, inflation, changes in income or expenses, job loss, health events, or your full personal circumstances. Category names such as 529 plans, UGMA/UTMA accounts, Roth IRAs, stocks and ETFs, and life insurance are labels for budgeting only and are not endorsements or recommendations of any product, strategy, or provider.</p>
+<p>Before making financial, employment, tax, or legal decisions, speak with a qualified, licensed professional who knows your situation. Do not rely on this tool as the basis for any decision. You use it at your own risk, and to the fullest extent permitted by law, I disclaim all liability for any loss or damage arising from its use or from reliance on its results.</p>
+<p>The views and content here are my own personal views, are shared in my individual capacity, and do not represent the views, advice, or products of any current or former employer or any organization I am or have been affiliated with. No past or present employer has reviewed or endorsed this tool. Links to third-party sites are provided for convenience only, and I am not responsible for their content or practices. Your entries are stored only in your own browser on your own device.</p>
+</div>
+</div>
+
+<script>
+var G=[{t:"Expenses",s:"What it costs to run your household.",c:[["Housing","Mortgage or rent, property tax, home insurance"],["Utilities, internet & phones",""],["Groceries",""],["Dining out, entertainment & subscriptions",""],["Childcare & school","Daycare, preschool, tuition"],["Kids’ activities & supplies","Classes, sports, diapers, gear"],["Transportation","Car payment, gas, transit, car insurance, upkeep"],["Health & medical","Premiums, copays, prescriptions"],["Short-term life insurance","Term life policies"],["Debt payments","Student loans, cards, other loans (not housing or car)"],["Travel, giving & everything else","Trips, donations, pets, cash"]]},
+{t:"Investing",s:"Money you put toward the future. Pausing these is a flexible cutback.",c:[["529 college savings plans",""],["UGMA/UTMA custodial accounts","Uniform Gifts or Transfers to Minors Act accounts for your kids"],["Roth IRA & other retirement","Contributions from take-home pay"],["Stocks & ETFs","Brokerage investing"],["Whole life insurance","Cash-value policies"]]},
+{t:"Saving",s:"Cash you set aside.",c:[["Emergency fund",""],["Goal savings","Home, car, trips, big purchases"]]}];
+var rowsEl=document.getElementById("rows"),idx=0;
+function mk(id,ph,label){var i=document.createElement("input");i.id=id;i.setAttribute("data-k","");i.setAttribute("inputmode","decimal");i.placeholder=ph;i.setAttribute("aria-label",label);return i}
+function el(tag,cls,html){var d=document.createElement(tag);if(cls)d.className=cls;if(html!==undefined)d.innerHTML=html;return d}
+G.forEach(function(g,gi){
+  rowsEl.appendChild(el("div","gh","<b>"+g.t+"</b><span>"+g.s+"</span>"));
+  g.c.forEach(function(c){
+    rowsEl.appendChild(el("div","lb",c[0]+(c[1]?"<small>"+c[1]+"</small>":"")));
+    rowsEl.appendChild(mk("c"+idx,"0",c[0]+", today"));rowsEl.appendChild(mk("x"+idx,"same",c[0]+", with cutbacks"));idx++;
+  });
+  rowsEl.appendChild(el("div","st",g.t+" subtotal"));
+  rowsEl.appendChild(el("div","stn",'<span id="gc'+gi+'">$0</span>'));
+  rowsEl.appendChild(el("div","stn",'<span id="gx'+gi+'">$0</span>'));
+});
+var inputs=[].slice.call(document.querySelectorAll("[data-k]"));
+function n(id){var v=parseFloat(String(document.getElementById(id).value).replace(/[$,\s]/g,""));return isFinite(v)?v:0}
+function has(id){return String(document.getElementById(id).value).trim()!==""}
+function $(v){return (v<0?"-":"")+"$"+Math.round(Math.abs(v)).toLocaleString("en-US")}
+function setT(id,txt){var e=document.getElementById(id);if(e.textContent!==txt){e.textContent=txt;if(e.classList.contains("num")){e.classList.remove("bump");void e.offsetWidth;e.classList.add("bump")}}}
+function save(){try{var o={};inputs.forEach(function(e){o[e.id]=e.value});localStorage.setItem("wonc4",JSON.stringify(o))}catch(e){}}
+function load(){try{var o=JSON.parse(localStorage.getItem("wonc4")||"{}");inputs.forEach(function(e){if(o[e.id]!==undefined)e.value=o[e.id]})}catch(e){}}
+function signed(v){return (v>=0?"+":"")+$(v)}
+function calc(){
+  var gc=[0,0,0],gx=[0,0,0],k=0,big=0,bl="";
+  G.forEach(function(g,gi){g.c.forEach(function(c){var a=n("c"+k),x=has("x"+k)?n("x"+k):a;gc[gi]+=a;gx[gi]+=x;if(a-x>big){big=a-x;bl=c[0]}k++})});
+  var cur=gc[0]+gc[1]+gc[2],cut=gx[0]+gx[1]+gx[2];
+  for(var i=0;i<3;i++){setT("gc"+i,$(gc[i]));setT("gx"+i,$(gx[i]))}
+  var e1=n("e1"),e2=n("e2"),oth=n("oth");
+  var now=e1+e2+oth,top=Math.max(e1,e2),pay=e1+e2,two=e1>0&&e2>0;
+  setT("incTot",$(now));setT("allTot",$(cur));
+  var out=document.getElementById("out"),sumEl=document.getElementById("sum");
+  var empty=cur===0;
+  var A=now-cur,B=now-cut,C=top+oth-cut;
+  function pc(cls,tag,title,txt){return '<div class="p '+cls+'"><span class="tag">'+tag+'</span><h3>'+title+'</h3><p>'+txt+'</p></div>'}
+  var cards=[];
+  cards.push(B>=0?pc("yes","On track",two?"Both paychecks":"Your income today","With cutbacks you’d have "+$(B)+" a month left after expenses, investing, and saving."):pc("no","Short",two?"Both paychecks":"Your income today","Even with cutbacks you’d be "+$(-B)+" short each month. Look at bigger changes to housing, childcare, or car costs first."));
+  if(two)cards.push(C>=0?pc("yes","Within reach","Living on one paycheck","Your higher paycheck plus other income covers your number with "+$(C)+" to spare each month."):pc(-C<=cut*0.15?"near":"no",-C<=cut*0.15?"Close":"Not yet","Living on one paycheck","You’d be "+$(-C)+" short each month on your higher paycheck alone. Close it by cutting that much more or adding that much income."));
+  var need=Math.max(0,cut-oth),share=pay>0?need/pay:0,days=Math.round(share*50)/10;
+  cards.push(need===0?pc("yes","Covered","Paid work optional","Your other income (rental, passive, or side income) already covers your number, so paid work wouldn’t be required to cover it.")
+    :pay<=0?pc("no","Add your pay","Working fewer hours","Add your pay in Step 1 to see how much paid work your number takes.")
+    :pc(share<=0.6?"yes":share<=1?"near":"no",share<=0.6?"Within reach":share<=1?"Possible":"Not yet","Working fewer hours","After other income, "+$(need)+" a month has to come from paid work. That’s about "+Math.round(share*100)+"% of what you earn from jobs today"+(share<=1?", roughly "+days+" of every 5 workdays.":", which is more than you earn now.")));
+  var nt=[];
+  nt.push(cur>cut?"Cutting back frees up "+$(cur-cut)+" a month, or "+$((cur-cut)*12)+" a year."+(bl?" Your biggest change is "+bl+" ("+$(big)+").":""):"You haven’t entered cutbacks yet. Lower a few categories in Step 2 to see the difference.");
+  if(two)nt.push("Living on your higher paycheck instead of both changes your leftover by "+$(C-B)+" a month, from "+signed(B)+" to "+signed(C)+".");
+  if(gx[1]+gx[2]>0)nt.push("Investing and saving make up "+$(gx[1]+gx[2])+" of your monthly number with cutbacks. Those are the easiest to pause if you need breathing room.");
+  if(empty){cards=[pc("","Waiting","Both paychecks","Add your income and expenses above to see this."),pc("","Waiting","Living on one paycheck","Add your income and expenses above to see this."),pc("","Waiting","Working fewer hours","Add your income and expenses above to see this.")];nt=["Enter your income and expenses above and these numbers will update as you type."]}
+  function col(t,v,g,l){return '<div><div class="lab">'+t+'</div><div class="big">'+$(v)+'</div><p>Expenses '+$(g[0])+' · Investing '+$(g[1])+' · Saving '+$(g[2])+'</p><p>Leftover: <span class="'+(l>=0?"pos":"neg")+'">'+signed(l)+'</span> a month</p></div>'}
+  out.innerHTML='<div class="hero">'+col("Your number today",cur,gc,A)+col("With cutbacks",cut,gx,B)+'</div>'
+   +'<div class="card notes" style="margin-top:12px"><h3>What changes</h3>'+nt.map(function(t){return "<p>"+t+"</p>"}).join("")+'</div>'
+   +'<h2>What fits?</h2><div class="path">'+cards.join("")+'</div>';
+  sumEl.value=["MY MONTHLY NUMBER","",
+   "Today: "+$(cur)+" (expenses "+$(gc[0])+", investing "+$(gc[1])+", saving "+$(gc[2])+")",
+   "With cutbacks: "+$(cut)+" (expenses "+$(gx[0])+", investing "+$(gx[1])+", saving "+$(gx[2])+")",
+   "Monthly income: "+$(now),"",
+   "Leftover per month today: "+signed(A),"Leftover per month with cutbacks: "+signed(B)].concat(two?["Leftover on higher paycheck only, with cutbacks: "+signed(C)]:[]).concat(["","For education only, not financial advice. Made with the calculator by @heyitsjoannaherrera"]).join("\n");
+  if(empty)sumEl.value="";
+}
+inputs.forEach(function(e){e.addEventListener("input",function(){save();calc()})});
+document.getElementById("copy").addEventListener("click",function(){
+  var b=this,t=document.getElementById("sum");
+  if(!t.value){b.textContent="Add your numbers first";return}
+  function ok(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy my summary"},1800)}
+  try{navigator.clipboard.writeText(t.value).then(ok,function(){t.select();try{document.execCommand("copy");ok()}catch(e){}})}catch(e){t.select();try{document.execCommand("copy");ok()}catch(e2){}}
+});
+document.getElementById("clear").addEventListener("click",function(){inputs.forEach(function(e){e.value=""});save();calc()});
+load();calc();
+</script>
+</body>
+</html>
